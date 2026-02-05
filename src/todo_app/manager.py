@@ -13,6 +13,17 @@ class TodoManager:
         self.storage.save_todos(self.todos)
         return todo
 
+    def update_todo(self, identifier: str, title: Optional[str] = None, description: Optional[str] = None) -> bool:
+        todo = self.find_todo(identifier)
+        if todo:
+            if title is not None:
+                todo.title = title
+            if description is not None:
+                todo.description = description
+            self.storage.save_todos(self.todos)
+            return True
+        return False
+
     def list_todos(self) -> List[Todo]:
         return self.todos
 

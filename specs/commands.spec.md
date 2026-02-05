@@ -2,6 +2,7 @@
 
 ## CLI Command Requirements
 - `add` → prompts user for todo details
+- `update <id>` → prompts user for new details (leave blank to keep current)
 - `list` → displays all todos clearly
 - `done <id|title>` → marks a todo as completed by ID or exact title
 - `delete <id|title>` → deletes a todo by ID or exact title

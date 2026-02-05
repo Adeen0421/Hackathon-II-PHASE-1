@@ -9,6 +9,7 @@ class CLI:
         print("\nAvailable commands:")
         print("  add               - Add a new todo")
         print("  list              - List all todos")
+        print("  update <id|title> - Update a todo's details")
         print("  done <id|title>   - Mark a todo as completed by ID or Title")
         print("  delete <id|title> - Delete a todo by ID or Title")
         print("  exit              - Exit the application")
@@ -33,6 +34,11 @@ class CLI:
                     self.handle_add()
                 elif command == "list":
                     self.handle_list()
+                elif command == "update":
+                    if not args:
+                        print("Error: Missing todo ID or Title. Usage: update <id|title>")
+                    else:
+                        self.handle_update(" ".join(args))
                 elif command == "done":
                     if not args:
                         print("Error: Missing todo ID or Title. Usage: done <id|title>")
@@ -62,6 +68,27 @@ class CLI:
         description = input("  Description (optional): ").strip()
         todo = self.manager.add_todo(title, description)
         print(f"Todo added successfully! ID: {todo.id}")
+
+    def handle_update(self, identifier: str):
+        todo = self.manager.find_todo(identifier)
+        if not todo:
+            print(f"Error: Todo with ID or Title '{identifier}' not found.")
+            return
+
+        print(f"Updating todo '{todo.title}' (ID: {todo.id})")
+        print("Leave fields blank to keep current values.")
+        
+        new_title = input(f"  Title [{todo.title}]: ").strip()
+        new_description = input(f"  Description [{todo.description}]: ").strip()
+        
+        # Convert empty strings to None to indicate no change
+        title_arg = new_title if new_title else None
+        desc_arg = new_description if new_description else None
+        
+        if self.manager.update_todo(identifier, title_arg, desc_arg):
+            print(f"Todo '{identifier}' updated successfully.")
+        else:
+            print(f"Error: Failed to update todo '{identifier}'.")
 
     def handle_list(self):
         todos = self.manager.list_todos()

@@ -3,6 +3,7 @@
 ## Functional Requirements
 - Users can add a todo
 - Users can list all todos
+- Users can update a todo's details (title, description)
 - Users can mark a todo as completed (by ID or Title)
 - Users can delete a todo (by ID or Title)
 - Todos must persist between program runs

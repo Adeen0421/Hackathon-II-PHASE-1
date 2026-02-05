@@ -1,5 +1,5 @@
 from todo_app.cli import CLI
 
 if __name__ == "__main__":
-    app = CLI()
-    app.run()
+    cli = CLI()
+    cli.run()
